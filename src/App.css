@@ -293,3 +293,58 @@ body {
   50% { transform: scale(1.1); }
   60%, 90% { transform: scale(1); }
 }
+
+/* Loader styles */
+.loader-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background:
+    url('./assets/couple1.jpg') center center/contain no-repeat,
+    linear-gradient(135deg, #fbc2eb 0%, #a18cd1 100%);
+  background-repeat: no-repeat, no-repeat;
+  background-position: center center, center center;
+  background-size: contain, cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: loader-fadeout 0.7s ease 1.7s forwards;
+}
+.loader-bg::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.55); /* blackish overlay */
+  z-index: 1;
+}
+.loader-heart, .loader-text {
+  position: relative;
+  z-index: 2;
+}
+.loader-heart {
+  font-size: 5rem;
+  animation: heart-beat 1s infinite;
+  margin-bottom: 1.5rem;
+  filter: drop-shadow(0 2px 8px #d7266080);
+}
+.loader-text {
+  font-size: 2.5rem;
+  color: #d72660;
+  font-family: 'Segoe Script', 'Comic Sans MS', cursive, sans-serif;
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-shadow: 0 2px 8px #fff8, 0 1px 1px #d7266080;
+}
+@keyframes loader-fadeout {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}

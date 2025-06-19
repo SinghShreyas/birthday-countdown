@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react'
 import './App.css'
-import coupleImg from './assets/couple.JPG'
+import couple1 from './assets/couple1.jpg'
+import couple2 from './assets/couple.JPG'
+
+const loaderImages = [couple1, couple2]
 
 // Set the birthday to July 6, 2024 at 23:59:59.999 local time
 const BIRTHDAY = new Date(2024, 6, 6, 23, 59, 59, 999) // Note: month is 0-indexed, so 6 = July
@@ -29,6 +32,12 @@ function getTimeLeft() {
 
 function App() {
   const [timeLeft, setTimeLeft] = useState(getTimeLeft())
+  const [loading, setLoading] = useState(true)
+  const [loaderImg, setLoaderImg] = useState(loaderImages[0])
+
+  useEffect(() => {
+    setLoaderImg(loaderImages[Math.floor(Math.random() * loaderImages.length)])
+  }, [])
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -36,6 +45,29 @@ function App() {
     }, 1000)
     return () => clearInterval(timer)
   }, [])
+
+  useEffect(() => {
+    const timeout = setTimeout(() => setLoading(false), 2000)
+    return () => clearTimeout(timeout)
+  }, [])
+
+  if (loading) {
+    return (
+      <div
+        className="loader-bg"
+        style={{
+          background:
+            `url(${loaderImg}) center center/contain no-repeat, linear-gradient(135deg, #fbc2eb 0%, #a18cd1 100%)`,
+          backgroundRepeat: 'no-repeat, no-repeat',
+          backgroundPosition: 'center center, center center',
+          backgroundSize: 'contain, cover',
+        }}
+      >
+        <div className="loader-text">BAUAA, I LOVE YOU.</div>
+        <div className="loader-heart">❤️</div>
+      </div>
+    )
+  }
 
   return (
     <>
